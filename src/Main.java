@@ -11,25 +11,63 @@ public class Main {
         System.out.println(a);
         System.out.println(b);
         System.out.println(c);
+
+        char[] arr = new char[2];
+        System.out.println(arr[0] == 0);
     }
 
 
-    public int[] constructArr(int[] a) {
-        if(a.length==0) return new int[0];
-        int[] b = new int[a.length];
-
-
-
+    public String convert1(String s, int numRows) {
+        if(numRows==1)return s;
+        char[] arr = s.toCharArray();
+        char[][] blank = new char[numRows][s.length() / 2 + numRows - 1];
+        int index = 0;
+        for (int j = 0; j < blank[0].length; j++) {
+            if (j % (numRows - 1) == 0) {
+                for (int i = 0; i < numRows; i++) {
+                    if(index==arr.length)
+                        break;
+                    blank[i][j] = arr[index++];
+                }
+            } else {
+                //定位，每一列只有一个要填值
+                if(index==arr.length)
+                    break;
+                blank[numRows - 1 - j % (numRows - 1)][j] = arr[index++];
+            }
+        }
+        index = 0;
+        for (int i = 0; i < blank.length; i++) {
+            for (int j = 0; j < blank[0].length; j++) {
+                if (blank[i][j] != 0) {
+                    arr[index++] = blank[i][j];
+                }
+            }
+        }
+        return String.valueOf(arr);
     }
 
 
-
-
-
-
-
-
-
+    public String convert(String s, int numRows) {
+        if(numRows<2)return s;
+        List<StringBuilder> rows = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            rows.add(new StringBuilder());
+        }
+        int index = 0;int flag = -1;
+        for(char c:s.toCharArray()){
+            rows.get(index).append(c);
+            if(index==0||index==numRows-1){
+                flag = -flag;
+            }
+            index += flag;
+        }
+        StringBuilder res = new StringBuilder();
+        for(StringBuilder row:rows){
+            res.append(row);
+        }
+        return res.toString();
+    }
 
 
 
@@ -72,8 +110,8 @@ public class Main {
         int res = 0;
         int m = 3;
         for (int i = 0; i < nums.length; i++) {
-            if(count[i]%m==1){
-                res+=Math.pow(2,i);
+            if (count[i] % m == 1) {
+                res += Math.pow(2, i);
             }
         }
         return res;
