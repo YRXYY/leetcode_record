@@ -5,16 +5,20 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         // main.test11();
-        int a = 15 & 1;
-        int b = 9 & 2;
-        int c = 9 & 1;
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(c);
+//        int a = 15 & 1;
+//        int b = 9 & 2;
+//        int c = 9 & 1;
+//        System.out.println(a);
+//        System.out.println(b);
+//        System.out.println(c);
+//
+//        char[] arr = new char[2];
+//        System.out.println(arr[0] == 0);
 
-        char[] arr = new char[2];
-        System.out.println(arr[0] == 0);
+
+
     }
+
 
 
     public String convert1(String s, int numRows) {
