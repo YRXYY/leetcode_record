@@ -7,8 +7,13 @@ public class SellTickets implements Runnable{
     public void run() {
         for (int i = 0; i <100 ; i++) {
             if(ticket>0){
+                try {
+                    Thread.sleep(100);  //网络延迟
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 ticket--;
-                System.out.println(Thread.currentThread().getName()+" sell one,and left"+ticket);
+                System.out.println(Thread.currentThread().getName()+" sell one,and left "+ticket);
             }
         }
     }
@@ -16,11 +21,11 @@ public class SellTickets implements Runnable{
     public static void main(String[] args) {
         SellTickets s1 = new SellTickets();
         new Thread(s1,"A").start();
-        new Thread(s1).start();
+        //new Thread(s1).start();
         new Thread(s1,"B").start();
-        new Thread(s1).start();
+        //new Thread(s1).start();
         new Thread(s1,"C").start();
-        new Thread(s1).start();
+        //new Thread(s1).start();
     }
 
     /**
