@@ -3,7 +3,7 @@ package other;
 public class Number {
 
     public static void main(String[] args) {
-        //new Number().test1();
+        //new Number().Test1();
         new Number().test2();
     }
 

@@ -19,9 +19,13 @@ public class NC91 {
 
     public int findNumberOfLIS(int[] nums){
         int N = nums.length;
-        if(N<=1) return N;
-        int[] lengths = new int[N]; //length[i[ = length of longest ending in nums[i]
-        int[] counts = new int[N];  //counts[i] = Number of longest ending in nums[i]
+        if(N<=1) {
+            return N;
+        }
+        int[] lengths = new int[N];
+        //length[i[ = length of longest ending in nums[i]
+        int[] counts = new int[N];
+        //counts[i] = Number of longest ending in nums[i]
         Arrays.fill(counts, 1);
 
         int len = 0,res = 1;
