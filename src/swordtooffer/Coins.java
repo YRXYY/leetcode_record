@@ -16,13 +16,16 @@ public class Coins {
         res = Integer.MAX_VALUE;
         this.amount = amount;
         dfsCoin(coins,0,0);
-        if(res==Integer.MAX_VALUE)
+        if(res==Integer.MAX_VALUE) {
             return -1;
+        }
         return res;
     }
 
     public void dfsCoin(int[] coins,long money,int num){
-        if(money>amount||num>=res)return;
+        if(money>amount||num>=res) {
+            return;
+        }
         if(amount==money){
             res = Math.min(res,num);
             return;
