@@ -1,5 +1,9 @@
 package swordtooffer.binarysearch;
 
+/**
+ * @author 少司礼
+ * @date 2021、4、8
+ */
 public class FindNum {
 
     /**
@@ -68,6 +72,34 @@ public class FindNum {
             }
         }
         return leftSide || rightSide;
+    }
+
+    /**
+     * 输入：nums = [3,4,5,1,2]
+     * 输出：1
+     * 解释：原数组为 [1,2,3,4,5] ，旋转 3 次得到输入数组。
+     */
+    public int findMin(int[] nums) {
+        if (nums[0] <= nums[nums.length - 1]) {
+            return nums[0];
+        }
+        if (nums.length == 2) {
+            return nums[1];
+        }
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (mid > 0 && nums[mid] < nums[mid - 1]) {
+                return nums[mid];
+            }
+            if (nums[mid] >= nums[0]) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left;
+
     }
 
 
