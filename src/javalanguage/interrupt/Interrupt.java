@@ -1,4 +1,4 @@
-package interrupt;
+package javalanguage.interrupt;
 
 /**
  *  给受阻塞进程抛出中断信号，使受阻线程退出阻塞（wait，sleep，join）

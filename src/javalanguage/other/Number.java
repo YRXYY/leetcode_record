@@ -1,4 +1,4 @@
-package other;
+package javalanguage.other;
 
 public class Number {
 
