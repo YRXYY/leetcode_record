@@ -787,13 +787,166 @@ public class OfferMedium {
         return head.next;
     }
 
-    public static void main(String[] args) {
-//        System.out.println(new OfferMedium().findNthDigit(11));
-//        int[] arr = new int[]{258,260,265,266,268,269,271,275,276,278,280,282,287,288,289,293,2,4,5,9,16,23,24,25,26,27,28,36,37,46,47,52,55,56,60,63,67,71,74,75,76,79,80,81,82,92,97,99,103,104,106,109,111,112,117,121,125,131,133,136,141,142,143,144,154,160,161,168,169,179,187,190,201,202,204,206,208,209,211,213,218,220,222,224,225,226,229,230,231,234,240,241,242,243,244,245,247,249,252,253,254,257};
+    /**
+     * 螺旋矩阵
+     */
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int n0 = -1, m0 = 0;
+        int x = 0, y = 0;
+        int count = 0;
+        int status = 0;
+        List<Integer> result = new ArrayList<>();
+        while (count < matrix.length * matrix[0].length) {
+            count++;
+            result.add(matrix[x][y]);
+            switch (status) {
+                case 0:
+                    y++;
+                    if (y == n) {
+                        n--;
+                        y--;
+                        status = 1;
+                        x++;
+                    }
+                    break;
+                case 1:
+                    x++;
+                    if (x == m) {
+                        m--;
+                        x--;
+                        status = 2;
+                        y--;
+                    }
+                    break;
+                case 2:
+                    y--;
+                    if (y == n0) {
+                        n0++;
+                        y++;
+                        status = 3;
+                        x--;
+                    }
+                    break;
+                case 3:
+                    x--;
+                    if (x ==  m0) {
+                        m0++;
+                        x++;
+                        status = 0;
+                        y++;
+                    }
+                    break;
+            }
+        }
+        return result;
+    }
 
-        int[] arr = new int[]{2, 1, 5, 3, 6, 4, 8, 9, 7, 8, 9};
-        new OfferMedium().LIS(arr);
-        System.out.println(new OfferMedium().search(arr, 81));
+    /**
+     * 螺旋矩阵2
+     */
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        int x = 0, y = 0;
+        int m1 = n, n1 = n;
+        int m0 = 0, n0 = -1;
+        int count = 1;
+        int status = 0;
+        while (count <= n*n) {
+            res[x][y] = count;
+            count++;
+            switch (status) {
+                case 0 :
+                    y++;
+                    if (y == n1) {
+                        y--;n1--;
+                        status = 1;
+                        x++;
+                    }
+                    break;
+                case 1 :
+                    x++;
+                    if (x == m1) {
+                        x--;m1--;
+                        status = 2;
+                        y--;
+                    }
+                    break;
+                case 2:
+                    y--;
+                    if (y == n0) {
+                        y++;n0++;
+                        status = 3;
+                        x--;
+                    }
+                    break;
+                case 3:
+                    x--;
+                    if (x == m0) {
+                        x++;m0++;
+                        status = 0;
+                        y++;
+                    }
+                    break;
+            }
+        }
+        return res;
+    }
+
+
+
+    /**
+     * 字符串相乘
+     * 输入: num1 = "2", num2 = "3"
+     * 输出: "6"
+     */
+    public String multiply(String num1, String num2) {
+        if ("0".equals(num1) || "0".equals(num2)) {
+            return "0";
+        }
+        char[] arr1 = num1.toCharArray();
+        char[] arr2 = num2.toCharArray();
+        // 是否进位
+        int tag;
+        List<Integer> list = new ArrayList<>();
+        for (int i = arr1.length - 1; i >= 0; i--) {
+            tag = 0;
+            for (int j = arr2.length - 1; j >= 0; j--) {
+                int tmp = (arr1[i] - 48) * (arr2[j] - 48) + tag;
+                if (tmp >= 10) {
+                    tag = tmp / 10;
+                    tmp %= 10;
+                } else {
+                    tag = 0;
+                }
+                int target = arr1.length + arr2.length - 2 - i - j;
+                if (list.size() > (target)) {
+                    int tmp2 = list.get(target) + tmp;
+                    if (tmp2 >= 10) {
+                        tag++;
+                        tmp2 -= 10;
+                    }
+                    list.remove(target);
+                    list.add(target, tmp2);
+                } else {
+                    list.add(tmp);
+                }
+            }
+            if (tag > 0) {
+                list.add(tag);
+            }
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = list.size() - 1; i >= 0; i--) {
+            stringBuilder.append(list.get(i));
+        }
+        return stringBuilder.toString();
+    }
+
+
+    public static void main(String[] args) {
+
+        System.out.println(new OfferMedium().multiply("9", "9"));
 
     }
 }

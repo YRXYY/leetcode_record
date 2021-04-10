@@ -11,10 +11,78 @@ public class Test1 {
 
     public static void main(String[] args) {
 
-        System.out.println(new Test1().spiralOrder(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}));
 
+        // 1010111
+        // 0101011
+        // 1111100
+
+        // 111  110
+        // 011  011
+        // 100  101
+
+        System.out.println(1 ^ 1>>1);
 
     }
+
+    /**
+     * 输入：nums = [-1,2,1,-4], target = 1
+     * 输出：2
+     * 解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2)
+     * -4 -1 1 2
+     * -3 0 1 2
+     */
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int res = Integer.MAX_VALUE/2;
+        for (int i = 0; i < nums.length - 2; i++) {
+            int left = i + 1, right = nums.length - 1;
+            while (left < right) {
+                int tmp = nums[i] + nums[left] + nums[right];
+                if (tmp == target) {
+                    return target;
+                } else if (tmp > target) {
+                    left++;
+                } else {
+                    right--;
+                }
+                if (Math.abs(tmp - target) < Math.abs(res - target)) {
+                    res = tmp;
+                }
+            }
+        }
+        return res;
+    }
+
+
+
+    public int uniquePaths1(int m, int n) {
+        int[][] arr = new int[m+1][n+1];
+        for (int i = 0; i < m+1; i++) {
+            arr[i][0] = 1;
+        }
+        for (int i = 0; i < n+1; i++) {
+            arr[0][i] = 1;
+        }
+        for (int i = 1; i < m+1; i++) {
+            for (int j = 1; j < n+1; j++) {
+                arr[i][j] = arr[i-1][j] + arr[i][j-1];
+            }
+        }
+        return arr[m][n];
+    }
+
+    public int uniquePaths(int m, int n) {
+        int[] arr = new int[n];
+        for (int i = 1; i < m; i++) {
+            int temp = 1;
+            for (int j = 0; j < n; j++) {
+                arr[j] = temp + arr[j];
+                temp = arr[j];
+            }
+        }
+        return arr[n-1];
+    }
+
 
 
     @Level(value = 2, message = "细节引起的错误 逻辑上的")

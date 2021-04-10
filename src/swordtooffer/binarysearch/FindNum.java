@@ -79,7 +79,7 @@ public class FindNum {
      * 输出：1
      * 解释：原数组为 [1,2,3,4,5] ，旋转 3 次得到输入数组。
      */
-    public int findMin(int[] nums) {
+    public int findMin2(int[] nums) {
         if (nums[0] <= nums[nums.length - 1]) {
             return nums[0];
         }
@@ -101,6 +101,46 @@ public class FindNum {
         return left;
 
     }
+
+    /**
+     * 输入：nums = [2,2,2,0,1]
+     * 输出：0
+     */
+    public int findMin(int[] nums) {
+        if (nums.length == 1 || nums[0] < nums[nums.length - 1]) {
+            return nums[0];
+        }
+        if (nums.length == 2) {
+            return Math.min(nums[0], nums[1]);
+        }
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[0]) {
+                left = mid + 1;
+            } else if (nums[mid] < nums[0]){
+                if (mid > 0 && nums[mid] < nums[mid - 1]) {
+                    return nums[mid];
+                } else {
+                    right = mid - 1;
+                }
+            } else {
+                for (int j = mid - 1; j >= 0; j--) {
+                    if (nums[j] == nums[0]) {
+                        continue;
+                    } else if (nums[j] < nums[0]) {
+                        right = j;
+                        break;
+                    }
+                }
+                if (left + (right - left) / 2 == mid) {
+                    left = mid + 1;
+                }
+            }
+        }
+        return nums[left];
+    }
+
 
 
 }

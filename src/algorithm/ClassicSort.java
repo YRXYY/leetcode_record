@@ -82,21 +82,21 @@ class BinarySearch {
  * NlogN 稳定的
  */
 class MergeSort {
-    public static void mergeSort(int[] arr, int[] temp, int left, int right) {
+    public static void merge(int[] arr, int[] temp, int left, int right) {
         //当left==right，排序终止
         if (left < right) {
             //[分]
             int center = (left + right) / 2;
             //[治]
-            mergeSort(arr, temp, left, center);
+            merge(arr, temp, left, center);
             //[治]
-            mergeSort(arr, temp, center + 1, right);
+            merge(arr, temp, center + 1, right);
             //[合]
-            merge(arr, temp, left, center, right);
+            sort(arr, temp, left, center, right);
         }
     }
 
-    public static void merge(int[] arr, int[] temp, int left, int center, int right) {
+    public static void sort(int[] arr, int[] temp, int left, int center, int right) {
         int i = left, j = center + 1;
         //先存储到辅助数组
         for (int k = left; k <= right; k++) {
