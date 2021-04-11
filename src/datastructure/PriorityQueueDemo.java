@@ -81,6 +81,51 @@ public class PriorityQueueDemo {
         return res;
     }
 
+    /**
+     * 丑数2：给你一个整数 n ，请你找出并返回第 n 个 丑数 。
+     * 输入：n = 10
+     * 输出：12
+     * 解释：[1, 2, 3, 4, 5, 6, 8, 9, 10, 12] 是由前 10 个丑数组成的序列。
+     */
+    public int nthUglyNumber1(int n) {
+        int[] args = new int[]{2, 3, 5};
+        Set<Long> set = new HashSet<>();
+        PriorityQueue<Long> queue = new PriorityQueue<>();
+        queue.add(1L);
+        long cur = 0L;
+        for (int i = 0; i < n; i++) {
+            cur = queue.poll();
+            set.add(cur);
+            for (int j = 0; j < 3; j++) {
+                long next = cur * args[j];
+                if (set.add(next)) {
+                    queue.add(next);
+                }
+            }
+        }
+        return (int)cur;
+    }
+
+    public int nthUglyNumber(int n) {
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        int p2 = 1, p3 = 1, p5 = 1;
+        for (int i = 2; i <= n; i++) {
+            int num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5;
+            dp[i] = Math.min(num2, Math.min(num3, num5));
+            if (num2 == dp[i]) {
+                p2++;
+            }
+            if (num3 == dp[i]) {
+                p3++;
+            }
+            if (num5 == dp[i]) {
+                p5++;
+            }
+        }
+        return dp[n];
+    }
+
 
 
 
