@@ -1,16 +1,40 @@
 package aatest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Test2 {
 
+
+    public static void main(String[] args) {
+
+        int[] arr = new int[]{10,2};
+        //System.out.println(Integer.valueOf("2"+"10").comp+
+        // areTo(Integer.valueOf("10"+"2")));
+        System.out.println(new Test2().largestNumber(arr));
+    }
+
     /**
-     * Integer[] ans = list.toArray(new Integer[list.size()]);
-     * <p>
-     * list 转数组
+     * 最大数
+     * 输入：nums = [3,30,34,5,9]
+     * 输出："9534330"
      */
+    public String largestNumber(int[] nums) {
+        String[] arr = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            arr[i] = String.valueOf(nums[i]);
+        }
+        Arrays.sort(arr, (x, y) -> (Long.valueOf(y+x).compareTo(Long.valueOf(x+y))));
+        if ("0".equals(arr[0])) {
+            return "0";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < nums.length; i++) {
+            sb.append(arr[i]);
+        }
+        return sb.toString();
+    }
+
+
 
 
 //    public long maxWater1 (int[] arr) {

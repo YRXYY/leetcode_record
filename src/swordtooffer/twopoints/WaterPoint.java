@@ -2,6 +2,9 @@ package swordtooffer.twopoints;
 
 public class WaterPoint {
 
+    /**
+     * 盛了多少水
+     */
     public int trapPoints(int[] height) {
         if (height.length < 1) {
             return 0;
@@ -22,5 +25,31 @@ public class WaterPoint {
         }
         return res;
     }
+
+    /**
+     * 盛最多水的容器
+     */
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length - 1;
+        int res = 0;
+        while (left < right) {
+            int water = (right - left) * Math.min(height[left], height[right]);
+            if (water > res) {
+                res = water;
+            }
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+
+        }
+        return res;
+
+    }
+
+
+
+
 
 }
