@@ -1,17 +1,165 @@
 package aatest;
 
+import com.sun.deploy.util.IconEncoder;
+
 import java.util.*;
 
 public class Test2 {
 
+    public static void main1(String[] args) {
+        int[] dp = new int[6];
+        // 0 0年
+        // 1 1年
+        dp[1] = 1;
+        for (int i = 0; i < 15; i++) {
+            // grow up
+            int tmp = dp[1];
+            dp[5] = dp[4];
+            dp[1] = dp[4];
+            dp[4] = dp[3];
+            dp[3] = dp[2];
+            dp[1] += dp[2];
+            dp[2] = tmp;
+        }
+        int res = 0;
+        for (int i = 1; i < 6; i++) {
+            res += dp[i];
+        }
+        System.out.println(res);
+
+    }
+
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long n = sc.nextLong();
+        int left = 0, right = 1000000;
+        while (left <  right) {
+            int mid = left + (right - left) / 2;
+            long nums1 = (long) mid * (mid + 1) / 2;
+            long nums2 = (long) (mid + 1) * (mid + 2) / 2;
+            if (n < nums1) {
+                right = mid - 1;
+            } else if (n > nums2) {
+                left = mid + 1;
+            } else if (n == nums2) {
+                System.out.println(mid + 1);
+                return;
+            } else{
+                System.out.println(mid);
+                return;
+            }
+        }
 
-        int[] arr = new int[]{10,2};
-        //System.out.println(Integer.valueOf("2"+"10").comp+
-        // areTo(Integer.valueOf("10"+"2")));
-        System.out.println(new Test2().largestNumber(arr));
+
+
     }
+
+
+
+
+    public static void main2(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char[] arr = sc.nextLine().toCharArray();
+        List<Integer> numList = new ArrayList<>();
+        List<Character> charList = new ArrayList<>();
+        List<Character> tempList = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == ' ') {
+                continue;
+            }
+            if (arr[i] == '+' ||arr[i] == '-' ||arr[i] == '*' ||arr[i] == '/' ){
+                charList.add(arr[i]);
+                StringBuffer stringBuffer = new StringBuffer();
+                for (int j = 0; j < tempList.size(); j++) {
+                    stringBuffer.append(tempList.get(j));
+                }
+                numList.add(Integer.valueOf(stringBuffer.toString()));
+                tempList = new ArrayList<>();
+            } else {
+                tempList.add(arr[i]);
+            }
+        }
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int j = 0; j < tempList.size(); j++) {
+            stringBuffer.append(tempList.get(j));
+        }
+        numList.add(Integer.valueOf(stringBuffer.toString()));
+        List<Integer> numRemove = new ArrayList<>();
+        for (int i = 0; i < charList.size(); i++) {
+            if (charList.get(i)=='*' || charList.get(i)=='/') {
+                int num1 = numList.get(i);
+                numRemove.add(i);
+                int num2 = numList.get(i+1);
+                if (charList.get(i) == '*') {
+                    num2 *= num1;
+                } else {
+                    num2 = num1 / num2;
+                }
+                numList.remove(i+1);
+                numList.add(i+1, num2);
+            }
+        }
+        for (int i = numRemove.size() - 1; i >= 0; i--) {
+            numList.remove((int)numRemove.get(i));
+        }
+        int num =  numList.get(0);
+        int count = 1;
+        for (int i = 0; i < charList.size(); i++) {
+            if (charList.get(i) == '+' ) {
+                num += numList.get(count);
+                count++;
+            } else if (charList.get(i) == '-' ) {
+                num -= numList.get(count);
+                count++;
+            }
+        }
+
+        System.out.println(num);
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 最大数
